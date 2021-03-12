@@ -51,7 +51,7 @@ void print_data(Module *module)
 {
   Serial.print(module->type);  
   for(byte i = 0;i < module->size_;i++)
-    Serial.println(module->data[i]);
+    Serial.println(module->data[i], DEC);
   Serial.print(" ");
 }
 
@@ -61,7 +61,7 @@ void str_cpy(char *l, const char *r)
     *l = *r, l++, r++;
 }
 
-void create_module(Module *module, byte size_, byte PIN, byte offset, char *str, byte n)
+void create_module(Module *module, byte size_, int PIN, byte offset, char *str, byte n)
 {
   module->size_ = size_;
   module->pin = PIN;

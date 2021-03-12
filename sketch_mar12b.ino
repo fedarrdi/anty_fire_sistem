@@ -1,4 +1,3 @@
-  
 struct Module
 {
   byte size_;
@@ -25,6 +24,17 @@ void print_humidity_temperature(const struct Module *module)
     Serial.println("-- Checksum Error!");
   else
     Serial.println("-- OK");
+}
+void fill_flame_data_module(struct Module *module)
+{
+  module->data[0] = analogRead(module->pin); 
+}
+void print_flame_data_module(const struct Module *module)
+{
+  if(module->data[0] >= 33) // if flame isn't detected
+    Serial.println("NO"); // turn OFF Arduino's LED
+  else
+    Serial.println("YES"); // turn ON Arduino's LED
 }
 
 byte read_data_humidity_temperature(byte pin)
@@ -68,17 +78,21 @@ void create_module(struct Module *module, byte size_, byte pin, void (*fill_)(st
   pinMode(module->pin, OUTPUT);
 }
 
-struct Module humidity_temperature_madule;
+struct Module humidity_temperature_module, flame_module;
 
 void setup()
 {
   Serial.begin(9600);
-  create_module(&humidity_temperature_madule, 4, 5, fill_data_humidity_temperature, print_humidity_temperature);
+  create_module(&humidity_temperature_module, 4, 5, fill_data_humidity_temperature, print_humidity_temperature);
+  
+  create_module(&flame_module, 1, A0, fill_flame_data_module, print_flame_data_module);
 }
 
 void loop()
 {
-  humidity_temperature_madule.fill_data(&humidity_temperature_madule);
-  humidity_temperature_madule.print_data(&humidity_temperature_madule);
+  //humidity_temperature_module.fill_data(&humidity_temperature_module);
+  //humidity_temperature_module.print_data(&humidity_temperature_module);
+  flame_module.fill_data(&flame_module);
+  flame_module.print_data(&flame_module);
   delay(1000);
 }

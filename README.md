@@ -6,10 +6,8 @@ All data from the device can be accessed, from the web using (<insert public IP/
 See s_chart.pdf
 ## Hardware flowchart
 See h_chart.pdf
-## Installation
-```bash
-pip install <insert packages>
-```
+## User friendly interface
+Using python script we display the data via a graph table.Making it easier for clients to use.
 ## Libraries
 We are using the ESP8266 package from the Arduino IDE.
 ```c
@@ -23,3 +21,4 @@ http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ## Future Plans
 Add more modules for more accurate data.
 Add standalone app for easier usage.
+Upgrade the user client.

@@ -2,6 +2,10 @@
 TTTGC Mk1 is a plastic box with a circuit and two sensors inside: one for detecting humidity and temperature levels and one that, using an IR camera, returns an analog value which, the closer it is to 0, the greater the fire. The circuit is a NodeMCU v1.0 using a popular WiFi module called ESP8266 which acts as a station for the data from the sensors and it can be easily accessed from anywhere that has an internet connection. The software is made so that you can add, with relative ease, as many modules as you want, as long as there's enough memory. 
 ## Usage
 All data from the device can be accessed, from the web using (<insert public IP/domain here>), which in this day and age, can be done from almost anywhere in the world. Last year was a clear indicator, with the Australian fires, that fire hazards are extremely dangerous and hard to control after they spread. Keeping this in mind, we decided that a system which is easy and cheap to manufacture, distribute and upgrade can be used by fire rangers to keep track of high risk areas(using the temperature and humidity modules) and should a fire happen(checked by the IR camera module) they can act quickly and stop the fires as soon as possible.
+## Software flowchart
+See s_chart.pdf
+## Hardware flowchart
+See h_chart.pdf
 ## Installation
 ```bash
 pip install <insert packages>

@@ -4,7 +4,7 @@
 #include <ESP8266mDNS.h>
 
 #define STASSID "Ndd_wrt"
-#define STAPSK  "......"
+#define STAPSK  "tania123"
 
 ESP8266WebServer server(80);
 
@@ -28,10 +28,10 @@ void fill_flame()
 
 void print_flame()
 {
-  String msg = "Yes";
+  String value = " 1 ";
   if (flameModule.data[0] >= 33)
-    msg = "No";
-  server.send(200, "text/html", msg);
+      value = " 0 ";
+  server.send(200, "text/html", value);
 }
 
 byte read_humidity_temperature(byte pin)
@@ -123,7 +123,7 @@ void setup_server()
 
   if(!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
     Serial.print("Failed");
-    Serial.print(WiFi.localIP());
+  Serial.print(WiFi.localIP());
      
   while (WiFi.status() != WL_CONNECTED)
     delay(500);

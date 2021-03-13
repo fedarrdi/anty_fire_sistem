@@ -19,6 +19,6 @@ We are using the ESP8266 package from the Arduino IDE.
 Additional Board Manager:
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
 ## Future Plans
-.Add more modules for more accurate data.
-.Add standalone app for easier usage.
-.Upgrade the user client.
+1.Add more modules for more accurate data.
+2.Add standalone app for easier usage.
+2.Upgrade the user client.

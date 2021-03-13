@@ -13,22 +13,22 @@ struct Module
   byte size_;
   byte pin;
   byte *data;
-} humidity_temperature_module, flame_module;
+}humidityTemperatureModule, flameModule;
 
-void fill_flame_data_module()
+void fill_flame()
 {
-  flame_module.data[0] = analogRead(flame_module.pin);
+  flameModule.data[0] = analogRead(flameModule.pin);
 }
 
-void print_flame_data_module()
+void print_flame()
 {
   String msg = "Yes";
-  if (flame_module.data[0] >= 33)
+  if (flameModule.data[0] >= 33)
     msg = "No";
   server.send(200, "text/html", msg);
 }
 
-byte read_data_humidity_temperature(byte pin)
+byte read_humidity_temperature(byte pin)
 {
   byte result = 0;
   for (byte i = 0; i < 8; i++)
@@ -42,35 +42,35 @@ byte read_data_humidity_temperature(byte pin)
   return result;
 }
 
-void fill_data_humidity_temperature()
+void fill_humidity_temperature()
 {
-  digitalWrite(humidity_temperature_module.pin, LOW);
+  digitalWrite(humidityTemperatureModule.pin, LOW);
   delay(30);
-  digitalWrite(humidity_temperature_module.pin, HIGH);
+  digitalWrite(humidityTemperatureModule.pin, HIGH);
   delayMicroseconds(40);
-  pinMode(humidity_temperature_module.pin, INPUT);
-  while (digitalRead(humidity_temperature_module.pin) == HIGH);
+  pinMode(humidityTemperatureModule.pin, INPUT);
+  while (digitalRead(humidityTemperatureModule.pin) == HIGH);
   delayMicroseconds(80);
-  if (digitalRead(humidity_temperature_module.pin) == LOW)
+  if (digitalRead(humidityTemperatureModule.pin) == LOW)
     delayMicroseconds(80);
-  for (int i = 0; i < humidity_temperature_module.size_; i++)
-    humidity_temperature_module.data[i] = read_data_humidity_temperature(humidity_temperature_module.pin);
-  pinMode(humidity_temperature_module.pin, OUTPUT);
-  digitalWrite(humidity_temperature_module.pin, HIGH);
+  for (int i = 0; i < humidityTemperatureModule.size_; i++)
+    humidityTemperatureModule.data[i] = read_humidity_temperature(humidityTemperatureModule.pin);
+  pinMode(humidityTemperatureModule.pin, OUTPUT);
+  digitalWrite(humidityTemperatureModule.pin, HIGH);
 }
 
 void print_humidity_temperature()
 {
   String msg = "<br>";
   msg += "Humdity = ";
-  msg += String(humidity_temperature_module.data[0]);
+  msg += String(humidityTemperatureModule.data[0]);
   msg += '.';
-  msg += String(humidity_temperature_module.data[1]);
+  msg += String(humidityTemperatureModule.data[1]);
   msg += "%</br><br>";
   msg += "Temperature = ";
-  msg += String(humidity_temperature_module.data[2]);
+  msg += String(humidityTemperatureModule.data[2]);
   msg += '.';
-  msg += String(humidity_temperature_module.data[3]);
+  msg += String(humidityTemperatureModule.data[3]);
   msg += "C</br>";
   server.send(200, "text/html", msg);
 }
@@ -127,7 +127,7 @@ void setup_server()
 
   server.on("/", handleRoot);
   server.on("/humidity_temperature", HTTP_GET, print_humidity_temperature);
-  server.on("/flame_data_module", HTTP_GET, print_flame_data_module);
+  server.on("/flame_data_module", HTTP_GET, print_flame);
 
   server.onNotFound(handleNotFound);
   server.begin();
@@ -137,14 +137,14 @@ void setup()
 {
   Serial.begin(9600);
   setup_server();
-  create_module(&humidity_temperature_module, 4, 5);
-  create_module(&flame_module, 1, A0);
+  create_module(&humidityTemperatureModule, 4, 5);
+  create_module(&flameModule, 1, A0);
 }
 
 void loop()
 {
   server.handleClient();
-  fill_data_humidity_temperature();
-  fill_flame_data_module();
+  fill_humidity_temperature();
+  fill_flame();
   delay(3600);
 }

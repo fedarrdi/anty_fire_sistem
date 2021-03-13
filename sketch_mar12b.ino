@@ -8,6 +8,12 @@
 
 ESP8266WebServer server(80);
 
+IPAddress local_IP(192,168,1,184);
+IPAddress gateway(192,168,1,1);
+IPAddress subnet(255,255,0,0);
+IPAddress primaryDNS(8,8,8,8);
+IPAddress secondaryDNS(8,8,4,4);
+
 struct Module
 {
   byte size_;
@@ -90,7 +96,6 @@ void handleRoot()
   server.send(200, "text/plain", "hello from esp8266!");
 }
 
-
 void handleNotFound()
 {
   String message = "File Not Found\n\n";
@@ -107,6 +112,7 @@ void handleNotFound()
 
   server.send(404, "text/html", message);
 }
+
 //--------------------------------------------------------------------
 
 void setup_server()
@@ -115,19 +121,21 @@ void setup_server()
   WiFi.mode(WIFI_STA);
   WiFi.begin(STASSID, STAPSK);
 
+  if(!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS))
+    Serial.print("Failed");
+    Serial.print(WiFi.localIP());
+     
   while (WiFi.status() != WL_CONNECTED)
     delay(500);
-    Serial.print(".");
 
   Serial.print(WiFi.localIP());
 
-  
   if (MDNS.begin("esp8266"))
     Serial.println("MDNS responder started");
 
   server.on("/", handleRoot);
   server.on("/humidity_temperature", HTTP_GET, print_humidity_temperature);
-  server.on("/flame_data_module", HTTP_GET, print_flame);
+  server.on("/flame", HTTP_GET, print_flame);
 
   server.onNotFound(handleNotFound);
   server.begin();

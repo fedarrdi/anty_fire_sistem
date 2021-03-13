@@ -4,7 +4,7 @@
 #include <ESP8266mDNS.h>
 
 #define STASSID "Ndd_wrt"
-#define STAPSK  "tania123"
+#define STAPSK  "......"
 
 ESP8266WebServer server(80);
 

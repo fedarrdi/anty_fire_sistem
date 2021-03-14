@@ -17,6 +17,15 @@ We are using the ESP8266 package from the Arduino IDE.
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
+```  
+
+```py
+import streamlit as st
+import matplotlib.pyplot as pls
+import pandas as pd
+import re
+import time
+from urllib.request import urlopen
 ```
 Additional Board Manager:
 http://arduino.esp8266.com/stable/package_esp8266com_index.json

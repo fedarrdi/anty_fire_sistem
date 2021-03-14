@@ -6,6 +6,8 @@ All data from the device can be accessed, from the web using (<insert public IP/
 See s_chart.pdf
 ## Hardware flowchart
 See h_chart.pdf
+## Networking flowchart
+See n_chart.pdf
 ## User friendly interface
 Using python script we display the data via a graph table.Making it easier for clients to use.
 ## Libraries

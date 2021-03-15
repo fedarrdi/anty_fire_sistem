@@ -10,6 +10,8 @@ See h_chart.pdf
 See n_chart.pdf
 ## User friendly interface
 Using python script we display the data via a graph table.Making it easier for clients to use.
+##Case
+The case is made out of recycled plastic that can be decomposed for 10-20 years at most.
 ## Libraries
 We are using the ESP8266 package from the Arduino IDE.
 ```c

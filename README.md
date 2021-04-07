@@ -10,7 +10,7 @@ See h_chart.pdf
 See n_chart.pdf
 ## User friendly interface
 Using python script we display the data via a graph table.Making it easier for clients to use.
-##Links for info
+## Links for info
 http://192.168.1.184/flame
 http://192.168.1.184/humidity_temperature
 ##Case

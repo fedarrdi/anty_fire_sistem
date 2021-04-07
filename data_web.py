@@ -4,6 +4,8 @@ import pandas as pd
 import re
 import time
 from urllib.request import urlopen
+import email_sender as es
+
 
 url0 ='http://192.168.1.184/flame'
 url1 = 'http://192.168.1.184/humidity_temperature'
@@ -17,6 +19,10 @@ def update_flame():
     html1 = page1.read().decode('utf-8')       
     splittext1 = re.split("[ ]", html1)
     is_flame = int(splittext1[1])
+    
+    if is_flame:
+        es.send_mail("1")
+    
     df2 = df2.append({'flame': is_flame}, ignore_index = True)
 
 def update_temp_hum():
@@ -27,6 +33,11 @@ def update_temp_hum():
         splittext = re.split('[ %C]', html)
         hum = float(splittext[2])
         temp = float(splittext[5])
+
+        if temp > 60 or hum < 30:
+            msg = temp + " " + hum
+            es.send_mail(msg)
+
     except:
         hum = 0
         temp = 0

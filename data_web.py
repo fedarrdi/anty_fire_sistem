@@ -9,11 +9,18 @@ import email_sender as es
 
 url0 ='http://192.168.1.184/flame'
 url1 = 'http://192.168.1.184/humidity_temperature'
+url2 = 'http://192.168.1.184/sensor_info'
 
 df1 = pd.DataFrame({'Temp: ':[0.0],'Hum: ':[0.0]})
 df2 = pd.DataFrame({'flame': [0]})
 
-def update_flame():
+def update_name():
+    page2 = urlopen(url2)
+    html2 = page2.read().decode('utf-8')
+    splittext2 = re.split("[ ]", html2)
+    return str(splittext2[1])
+
+def update_flame(name):
     global df2
     page1 = urlopen(url0)
     html1 = page1.read().decode('utf-8')       
@@ -21,11 +28,13 @@ def update_flame():
     is_flame = int(splittext1[1])
     
     if is_flame:
-        es.send_mail("1")
+        msg = name 
+        msg += " on fire"
+        es.send_mail(msg)
     
     df2 = df2.append({'flame': is_flame}, ignore_index = True)
 
-def update_temp_hum():
+def update_temp_hum(name):
     global df1
     try:
         page = urlopen(url1)
@@ -49,8 +58,9 @@ chart_weather1 = st.line_chart(df1)
 chart_weather2 = st.line_chart(df2)
 
 for i in range(0, 500):
-    update_flame()
-    update_temp_hum()
+    name = update_name()
+    update_flame(name)
+    update_temp_hum(name)
     chart_weather1.add_rows(df1[:][len(df1)-1: len(df1)])
     status_text1.write(df1.loc[:][::-1])
     chart_weather2.add_rows(df2[:][len(df2)-1: len(df2)])

@@ -11,8 +11,8 @@ See n_chart.pdf
 ## User friendly interface
 Using python script we display the data via a graph table.Making it easier for clients to use.
 ## Links for info
-http://192.168.1.184/flame
-http://192.168.1.184/humidity_temperature
+  http://192.168.1.184/flame
+  http://192.168.1.184/humidity_temperature
 ##Case
 The case is made out of recycled plastic that can be decomposed for 10-20 years at most.
 ## Libraries

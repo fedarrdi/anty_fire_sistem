@@ -3,8 +3,9 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266mDNS.h>
 
-#define STASSID "Ndd_wrt"
-#define STAPSK  "tania123"
+#define STASSID "Ilko"
+#define STAPSK  "krisi_radi"
+#define NAME "real_sensor"
 
 ESP8266WebServer server(80);
 
@@ -81,6 +82,14 @@ void print_humidity_temperature()
   server.send(200, "text/html", msg);
 }
 
+void get_name()
+{
+  String msg = " ";
+  msg += NAME;
+  msg += " ";
+  server.send(200, "text/html", msg);
+}
+
 void create_module(struct Module *module, byte size_, byte pin)
 {
   module->size_ = size_;
@@ -134,6 +143,7 @@ void setup_server()
     Serial.println("MDNS responder started");
 
   server.on("/", handleRoot);
+  server.on("/sensor_info", HTTP_GET, get_name);
   server.on("/humidity_temperature", HTTP_GET, print_humidity_temperature);
   server.on("/flame", HTTP_GET, print_flame);
 

@@ -4,7 +4,7 @@
 #include <ESP8266mDNS.h>
 
 #define STASSID "Ilko"
-#define STAPSK  "krisi_radi"
+#define STAPSK  "...."
 #define NAME "real_sensor"
 
 ESP8266WebServer server(80);
